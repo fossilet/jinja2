@@ -1,6 +1,81 @@
 Jinja2 Changelog
 ================
 
+Version 2.8.1
+-------------
+
+(unreleased bugfix release)
+
+- Fixed the `for_qs` flag for `urlencode`.
+
+Version 2.8
+-----------
+(codename Replacement, released on July 26th 2015)
+
+- Added `target` parameter to urlize function.
+- Added support for `followsymlinks` to the file system loader.
+- The truncate filter now counts the length.
+- Added equalto filter that helps with select filters.
+- Changed cache keys to use absolute file names if available
+  instead of load names.
+- Fixed loop length calculation for some iterators.
+- Changed how Jinja2 enforces strings to be native strings in
+  Python 2 to work when people break their default encoding.
+- Added :func:`make_logging_undefined` which returns an undefined
+  object that logs failures into a logger.
+- If unmarshalling of cached data fails the template will be
+  reloaded now.
+- Implemented a block ``set`` tag.
+- Default cache size was incrased to 400 from a low 50.
+- Fixed ``is number`` test to accept long integers in all Python versions.
+- Changed ``is number`` to accept Decimal as a number.
+- Added a check for default arguments followed by non-default arguments. This
+  change makes ``{% macro m(x, y=1, z) %}...{% endmacro %}`` a syntax error. The
+  previous behavior for this code was broken anyway (resulting in the default
+  value being applied to `y`).
+- Add ability to use custom subclasses of ``jinja2.compiler.CodeGenerator`` and
+  ``jinja2.runtime.Context`` by adding two new attributes to the environment
+  (`code_generator_class` and `context_class`) (pull request ``#404``).
+- added support for context/environment/evalctx decorator functions on
+  the finalize callback of the environment.
+- escape query strings for urlencode properly.  Previously slashes were not
+  escaped in that place.
+- Add 'base' parameter to 'int' filter.
+
+Version 2.7.3
+-------------
+(bugfix release, released on June 6th 2014)
+
+- Security issue: Corrected the security fix for the cache folder.  This
+  fix was provided by RedHat.
+
+Version 2.7.2
+-------------
+(bugfix release, released on January 10th 2014)
+
+- Prefix loader was not forwarding the locals properly to
+  inner loaders.  This is now fixed.
+- Security issue: Changed the default folder for the filesystem cache to be
+  user specific and read and write protected on UNIX systems.  See `Debian bug
+  734747`_ for more information.
+
+.. _Debian bug 734747: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=734747
+
+Version 2.7.1
+-------------
+(bugfix release, released on August 7th 2013)
+
+- Fixed a bug with ``call_filter`` not working properly on environment
+  and context filters.
+- Fixed lack of Python 3 support for bytecode caches.
+- Reverted support for defining blocks in included templates as this
+  broke existing templates for users.
+- Fixed some warnings with hashing of undefineds and nodes if Python
+  is run with warnings for Python 3.
+- Added support for properly hashing undefined objects.
+- Fixed a bug with the title filter not working on already uppercase
+  strings.
+
 Version 2.7
 -----------
 (codename Translation, released on May 20th 2013)
